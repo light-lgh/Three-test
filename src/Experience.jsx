@@ -9,7 +9,7 @@ import {
 } from "@react-three/drei";
 import { useControls, button } from "leva";
 import { Perf } from "r3f-perf";
-// import { Model } from "./Arrow1.jsx";
+import { Model } from "./Arrow1.jsx";
 import { useRef } from "react";
 
 function Experience() {
@@ -20,7 +20,7 @@ function Experience() {
       joystick: "invertY",
     },
     color: "#ff0000",
-    visible: false,
+    visible: true,
     myInterval: {
       min: 0,
       max: 10,
@@ -49,7 +49,7 @@ function Experience() {
     sphere.current.material.color.set(`hsl(${Math.random() * 360}, 100%, 75%)`);
     console.log("ok");
   };
-  // const model = useGLTF("/Duck.glb");
+  const model = useGLTF("/Duck.glb");
   const computer = useGLTF(
     "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf"
   );
@@ -58,91 +58,68 @@ function Experience() {
       {perfVisible && <Perf position="top-left" />}
       <directionalLight position={[1, 2, 3]} intensity={4.5} />
       <ambientLight intensity={1.5} />
-      {/* <OrbitControls makeDefault /> */}
+      <OrbitControls makeDefault />
       <Environment preset="city" />
-      <PresentationControls
-        global
-        rotation={[0.13, 0.1, 0]}
-        polar={[-0.4, 0.2]}
-        azimuth={[-1, 0.75]}
-        config={{ mass: 2, tension: 400 }}
-        snap={{ mass: 4, tension: 400 }}
+
+      <primitive object={model.scene} />
+      <primitive object={computer.scene} />
+      <Html
+        transform
+        wrapperClass="htmlScreen"
+        distanceFactor={1.17}
+        position={[0, 1.56, -1.4]}
+        rotation-x={-0.256}
       >
-        <Float rotationIntensity={0.4}>
-          <rectAreaLight
-            width={2.5}
-            height={1.65}
-            intensity={65}
-            color={"#ff6900"}
-            rotation={[-0.1, Math.PI, 0]}
-            position={[0, 0.55, -1.15]}
-          />
+        <iframe
+          src="//player.bilibili.com/player.html?isOutside=true&aid=1250160217&bvid=BV1BJ4m1b7Ls&cid=1425768556&p=1"
+          border="0"
+          frameborder="no"
+          framespacing="0"
+          allowfullscreen="true"
+        ></iframe>
+      </Html>
 
-          {/* <primitive
-            object={computer.scene}
-            position-y={-1.2}
-            // rotation-x={0.13}
-          > */}
-          <Html
-            transform
-            wrapperClass="htmlScreen"
-            distanceFactor={1.17}
-            position={[0, 1.56, -1.4]}
-            rotation-x={-0.256}
-          >
-            <iframe
-              src="//player.bilibili.com/player.html?isOutside=true&aid=1250160217&bvid=BV1BJ4m1b7Ls&cid=1425768556&p=1"
-              border="0"
-              frameborder="no"
-              framespacing="0"
-              allowfullscreen="true"
-            ></iframe>
-          </Html>
-          {/* </primitive> */}
+      <Model position-y={2} visible={visible} />
 
-          {/* <Model position-y={2} visible={visible} /> */}
+      <mesh
+        ref={sphere}
+        visible={visible}
+        position={[position.x, position.y, 0]}
+        onClick={testClick}
+        // castShadow
+        // receiveShadow
+        onPointerEnter={() => {
+          document.body.style.cursor = "pointer";
+        }}
+        onPointerLeave={() => {
+          document.body.style.cursor = "default";
+        }}
+      >
+        <sphereGeometry />
+        <meshStandardMaterial color={color} />
+      </mesh>
 
-          <mesh
-            ref={sphere}
-            visible={visible}
-            position={[position.x, position.y, 0]}
-            onClick={testClick}
-            // castShadow
-            // receiveShadow
-            onPointerEnter={() => {
-              document.body.style.cursor = "pointer";
-            }}
-            onPointerLeave={() => {
-              document.body.style.cursor = "default";
-            }}
-          >
-            <sphereGeometry />
-            <meshStandardMaterial color={color} />
-          </mesh>
+      <mesh
+        position-x={2}
+        scale={scale}
+        visible={visible}
+        onClick={(event) => event.stopPropagation()}
+        onPointerEnter={(event) => event.stopPropagation()}
+      >
+        <boxGeometry />
+        <meshStandardMaterial color="mediumpurple" />
+      </mesh>
 
-          <mesh
-            position-x={2}
-            scale={scale}
-            visible={visible}
-            onClick={(event) => event.stopPropagation()}
-            onPointerEnter={(event) => event.stopPropagation()}
-          >
-            <boxGeometry />
-            <meshStandardMaterial color="mediumpurple" />
-          </mesh>
-
-          {/* <mesh
-            position-y={-1}
-            rotation-x={-Math.PI * 0.5}
-            scale={5}
-            castShadow
-            receiveShadow
-          >
-            <planeGeometry />
-            <meshStandardMaterial color="greenyellow" />
-          </mesh> */}
-        </Float>
-      </PresentationControls>
+      <mesh
+        position-y={-1}
+        rotation-x={-Math.PI * 0.5}
+        scale={5}
+        castShadow
+        receiveShadow
+      >
+        <planeGeometry />
+        <meshStandardMaterial color="greenyellow" />
+      </mesh>
     </>
   );
 }
