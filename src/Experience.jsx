@@ -9,7 +9,7 @@ import {
 } from "@react-three/drei";
 import { useControls, button } from "leva";
 import { Perf } from "r3f-perf";
-import { Model } from "./Arrow1.jsx";
+// import { Model } from "./Arrow1.jsx";
 import { useRef } from "react";
 
 function Experience() {
@@ -49,7 +49,7 @@ function Experience() {
     sphere.current.material.color.set(`hsl(${Math.random() * 360}, 100%, 75%)`);
     console.log("ok");
   };
-  const model = useGLTF("/Duck.glb");
+  // const model = useGLTF("/Duck.glb");
   const computer = useGLTF(
     "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf"
   );
@@ -100,7 +100,7 @@ function Experience() {
           </Html>
           {/* </primitive> */}
 
-          <Model position-y={2} visible={visible} />
+          {/* <Model position-y={2} visible={visible} /> */}
 
           <mesh
             ref={sphere}
