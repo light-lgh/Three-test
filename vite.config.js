@@ -3,7 +3,7 @@ import { transformWithEsbuild } from "vite";
 
 export default {
   root: "src/",
-  publicDir: "../public/",
+  publicDir: "./public/",
   base: "/Three-test/",
   plugins: [
     // React support
