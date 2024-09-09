@@ -7,7 +7,7 @@ import React from "react";
 import { useGLTF } from "@react-three/drei";
 
 export function Model(props) {
-  const { nodes, materials } = useGLTF("/Three-test/arrow1.glb");
+  const { nodes, materials } = useGLTF("/arrow1.glb");
   return (
     <group {...props} dispose={null}>
       <mesh

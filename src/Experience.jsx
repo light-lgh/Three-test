@@ -49,7 +49,7 @@ function Experience() {
     sphere.current.material.color.set(`hsl(${Math.random() * 360}, 100%, 75%)`);
     console.log("ok");
   };
-  const model = useGLTF("/Three-test/Duck.glb");
+  const model = useGLTF("/Duck.glb");
   const computer = useGLTF(
     "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf"
   );
